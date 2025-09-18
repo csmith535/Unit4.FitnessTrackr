@@ -1,4 +1,5 @@
 import useQuery from "../api/useQuery";
+import useMutation from "../api/useMutation";
 import { useApi } from "../api/ApiContext";
 import { useAuth } from "../auth/AuthContext";
 import { useState } from "react";
@@ -10,23 +11,26 @@ export default function Activities() {
     error,
   } = useQuery("/activities", "activities");
   const { token } = useAuth();
-  const { request, invalidateTags } = useApi();
+  const { invalidateTags } = useApi();
   const [deleteError, setDeleteError] = useState(null);
-  const [errorActivityId, setErrorActivityId] = useState(null);
   const [deleting, setDeleting] = useState(false);
+  const [deleteID, setDeleteID] = useState(1);
+  const { mutate: deleteReq } = useMutation(
+    "DELETE",
+    deleteID ? `/activities/${deleteID}` : "/activities/1",
+    ["activities"]
+  );
 
   const handleDelete = async (id) => {
     setDeleteError(null);
-    setErrorActivityId(null);
     setDeleting(true);
+    setDeleteID(id);
+
     try {
-      await request(`/activities/${id}`, {
-        method: "DELETE",
-      });
+      await deleteReq();
       invalidateTags(["activities"]);
     } catch (e) {
       setDeleteError(`Failed to delete activity: ${e.message}`);
-      setErrorActivityId(id);
     } finally {
       setDeleting(false);
     }
@@ -44,20 +48,14 @@ export default function Activities() {
             <h3>{data.name}</h3>
             <p>{data.description}</p>
             {token ? (
-              <>
-                <button
-                  onClick={() => handleDelete(data.id)}
-                  disabled={deleting}
-                >
-                  Remove Activity
-                </button>
-                {deleteError && errorActivityId === data.id && (
-                  <div style={{ color: "red" }}>{deleteError}</div>
-                )}
-              </>
+              <button onClick={() => handleDelete(data.id)} disabled={deleting}>
+                Remove Activity
+              </button>
             ) : null}
           </div>
         ))}
+
+        <div>{deleteError}</div>
       </div>
     );
   }
