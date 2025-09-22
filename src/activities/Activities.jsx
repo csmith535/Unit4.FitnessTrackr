@@ -2,6 +2,8 @@ import useQuery from "../api/useQuery";
 import useMutation from "../api/useMutation";
 import { useAuth } from "../auth/AuthContext";
 
+// Working Block29 Assignment
+
 export default function Activities() {
   const {
     data: activities,
