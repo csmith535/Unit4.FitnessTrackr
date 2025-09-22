@@ -2,11 +2,13 @@ import { useParams, useNavigate, Link } from "react-router";
 import { useAuth } from "../auth/AuthContext";
 import useQuery from "../api/useQuery";
 import useMutation from "../api/useMutation";
+import { useState, useEffect } from "react";
 
 export default function Activity() {
   const { id } = useParams();
   const { token } = useAuth();
   const navigate = useNavigate();
+  const [deleteRequested, setDeleteRequested] = useState(false);
 
   const {
     data: activity,
@@ -24,15 +26,18 @@ export default function Activity() {
   ]);
 
   const handleDelete = async () => {
-    try {
-      await deleteReq();
-      if (!mutateError) {
-        navigate(`/activities`);
-      }
-    } catch (e) {
-      console.error(e);
-    }
+    setDeleteRequested(true);
+    await deleteReq();
   };
+
+  useEffect(() => {
+    if (deleteRequested && !mutateLoad && !mutateError) {
+      navigate("/activities");
+    }
+    if (deleteRequested && !mutateLoad) {
+      setDeleteRequested(false);
+    }
+  }, [deleteRequested, mutateLoad, mutateError, navigate]);
 
   if (loading) {
     return <div>Loading activity...</div>;
