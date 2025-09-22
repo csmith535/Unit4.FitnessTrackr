@@ -1,6 +1,7 @@
 import useQuery from "../api/useQuery";
 import useMutation from "../api/useMutation";
 import { useAuth } from "../auth/AuthContext";
+import { Link } from "react-router";
 
 // Working Block29 Assignment
 
@@ -37,6 +38,7 @@ function ActivityItem({ activity }) {
   return (
     <li className="activity-item">
       <p>{activity.name}</p>
+      <Link to={"/activities/" + activity.id}>Learn More</Link>
       {token && (
         <>
           <button onClick={() => deleteReq()}>
