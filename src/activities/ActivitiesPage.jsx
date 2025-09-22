@@ -1,4 +1,5 @@
 import Activities from "./Activities";
+import ActivitiesForm from "./ActivitiesForm";
 import { useAuth } from "../auth/AuthContext";
 
 export default function ActivitiesPage() {
@@ -10,9 +11,7 @@ export default function ActivitiesPage() {
       {token ? (
         <>
           <Activities />
-          <form>
-            <label>Add Activity</label>
-          </form>
+          <ActivitiesForm />
         </>
       ) : (
         <Activities />

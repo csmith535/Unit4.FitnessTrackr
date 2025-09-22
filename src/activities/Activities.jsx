@@ -33,12 +33,15 @@ function ActivityItem({ activity }) {
   } = useMutation("DELETE", `/activities/` + activity.id, ["activities"]);
 
   return (
-    <li>
+    <li className="activity-item">
       <p>{activity.name}</p>
       {token && (
-        <button onClick={() => deleteReq()}>
-          {mutateLoad ? "Deleting..." : mutateError ? mutateError : "Delete"}
-        </button>
+        <>
+          <button onClick={() => deleteReq()}>
+            {mutateLoad ? "Deleting..." : "Delete"}
+          </button>
+          {mutateError && <div>Error: {mutateError}</div>}
+        </>
       )}
     </li>
   );
