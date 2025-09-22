@@ -1,7 +1,7 @@
 import useQuery from "../api/useQuery";
 import { Link } from "react-router";
 
-// Working Block29 Assignment
+// Working Block30 Assignment
 
 export default function Activities() {
   const {
