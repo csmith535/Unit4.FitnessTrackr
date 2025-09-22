@@ -1,6 +1,4 @@
 import useQuery from "../api/useQuery";
-import useMutation from "../api/useMutation";
-import { useAuth } from "../auth/AuthContext";
 import { Link } from "react-router";
 
 // Working Block29 Assignment
@@ -28,25 +26,10 @@ export default function Activities() {
 }
 
 function ActivityItem({ activity }) {
-  const { token } = useAuth();
-  const {
-    mutate: deleteReq,
-    loading: mutateLoad,
-    error: mutateError,
-  } = useMutation("DELETE", `/activities/` + activity.id, ["activities"]);
-
   return (
     <li className="activity-item">
       <p>{activity.name}</p>
       <Link to={"/activities/" + activity.id}>Learn More</Link>
-      {token && (
-        <>
-          <button onClick={() => deleteReq()}>
-            {mutateLoad ? "Deleting..." : "Delete"}
-          </button>
-          {mutateError && <div>Error: {mutateError}</div>}
-        </>
-      )}
     </li>
   );
 }

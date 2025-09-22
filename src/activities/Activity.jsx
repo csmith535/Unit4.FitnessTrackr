@@ -26,7 +26,9 @@ export default function Activity() {
   const handleDelete = async () => {
     try {
       await deleteReq();
-      navigate("/activities");
+      if (!mutateError) {
+        navigate(`/activities`);
+      }
     } catch (e) {
       console.error(e);
     }
@@ -37,7 +39,12 @@ export default function Activity() {
   }
 
   if (error) {
-    return <div>Error loading activity: {error}</div>;
+    return (
+      <>
+        <div>Error loading activity: {error}</div>
+        <Link to="/">Return to Home</Link>
+      </>
+    );
   }
 
   if (!activity) {
