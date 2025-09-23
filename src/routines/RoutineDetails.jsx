@@ -4,6 +4,7 @@ import useQuery from "../api/useQuery";
 import useMutation from "../api/useMutation";
 import { useState, useEffect } from "react";
 import SetList from "./sets/SetList";
+import SetForm from "./sets/SetForm";
 
 export default function RoutineDetails() {
   const { id } = useParams();
@@ -38,7 +39,7 @@ export default function RoutineDetails() {
   }, [deleteRequested, mutateLoad, mutateError, navigate]);
 
   if (loading) {
-    return <div>Loading activity...</div>;
+    return <div>Loading routine...</div>;
   }
 
   if (error) {
@@ -74,6 +75,7 @@ export default function RoutineDetails() {
         </>
       )}
       <SetList sets={routine.sets} />
+      {token && <SetForm routineId={routine.id} />}
       <div>
         <Link to="/routines">Back to all Routines</Link>
       </div>
