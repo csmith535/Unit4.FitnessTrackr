@@ -183,6 +183,29 @@ h2 {
   margin: 2rem auto;
 }
 
+.set-item {
+  background: white;
+  border: 1px solid #e9ecef;
+  border-radius: 6px;
+  padding: 1rem;
+  margin: 0.5rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.set-item:hover {
+  border-color: #3498db;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.set-item p {
+  margin: 0;
+  font-weight: 500;
+  color: #2c3e50;
+}
+
 @media (max-width: 768px) {
   #root {
     padding: 0.5rem;

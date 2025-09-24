@@ -74,6 +74,7 @@ export default function RoutineDetails() {
           {mutateError && <div>Error: {mutateError}</div>}
         </>
       )}
+      <h3>Sets</h3>
       <SetList sets={routine.sets} />
       {token && <SetForm routineId={routine.id} />}
       <div>

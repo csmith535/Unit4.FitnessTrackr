@@ -5,7 +5,11 @@ import useQuery from "../../api/useQuery.js";
 export default function SetForm({ routineId }) {
   const [error, setError] = useState(null);
 
-  const { mutate: postReq } = useMutation("POST", "/sets", ["sets"]);
+  const { mutate: postReq } = useMutation("POST", "/sets", [
+    "sets",
+    "routines",
+    `routine-${routineId}`,
+  ]);
   const { data: activities } = useQuery("/activities", "activities");
 
   const tryCreateSet = async (formData) => {
@@ -44,7 +48,7 @@ export default function SetForm({ routineId }) {
           <input type="number" name="reps" />
         </label>
         <button>Add set</button>
-        {error && <p>{error}</p>}
+        {error && <div>Error: {error}</div>}
       </form>
     </>
   );
