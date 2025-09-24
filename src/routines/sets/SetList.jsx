@@ -56,7 +56,7 @@ function SetItem({ set, routineId }) {
       {token && (
         <>
           <button onClick={handleDelete} disabled={mutateLoad}>
-            {mutateLoad ? "Deleting..." : "Delete"}
+            {mutateLoad ? "Deleting..." : "X"}
           </button>
           {(mutateError || deleteError) && (
             <div>Error: {mutateError || deleteError}</div>
